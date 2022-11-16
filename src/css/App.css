@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Harmattan:wght@400;700&family=Lemonada&display=swap');
+
+:root {
+    --ash-gray: #cad2c5ff;
+    --dark-sea-green: #84a98cff;
+    --hookers-green: #52796fff;
+    --dark-slate-gray: #354f52ff;
+    --charcoal: #2f3e46ff;
+
+    font-family: 'Harmattan', sans-serif;
+}
+
+html, body {
+    height: 100vh;
+    margin: 0;
+    background: #2F3E46;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    flex: 1;
+    padding: 15px 100px;
+    height: 100%;
+}
+
+.description-leaderboard {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: white;
+    flex-wrap: wrap;
+}
+
+.description {
+    font-size: 1.8rem;
+}
+
+.description, .empty-btn {
+    flex: auto;
+}
+
+.empty-btn {
+    visibility: hidden;
+}
+
+.description-leaderboard button {
+    background: #406259;
+    color: white;
+    font-weight: bold;
+    font-size: 1.3rem;
+    border: none;
+    border-radius: 33px;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+.description-leaderboard button:hover,
+.game-left > button:hover {
+    background: #2B3633;
+    color: white;
+}
+
+.game {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+}
+
+.game-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.game-left > button {
+    background: #CAD2C5;
+    color: black;
+    font-weight: bold;
+    font-size: 1.6rem;
+    border: none;
+    border-radius: 12px;
+    padding: 8px 20px;
+    cursor: pointer;
+}
+
+.main-img > img {
+    height: 700px;
+}
+
+.main-img {
+    width: 100%;
+}

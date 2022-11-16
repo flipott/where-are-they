@@ -1,0 +1,55 @@
+.artists-to-find {
+    background: #406259;
+    color: white;
+    display: flex;  
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 20px;
+    border-radius: 33px;
+    width: 400px;
+}
+
+.item-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 450px;
+}
+
+h2 {
+    font-family: Lemonada;
+    font-size: 2rem;
+    margin: 0;
+    text-align: center;
+}
+
+.artist-item > img {
+    width: 75px;
+}
+
+.artist-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-top: 2px solid white;
+    width: 75%;
+}
+
+.artist-item > p {
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+
+.artist-item:last-of-type {
+    border-bottom: 2px solid white;
+}
+
+.find-status {
+    background: #F3B2C2;
+    border-radius: 33px;
+    padding: 3px 10px;
+    color: black;
+    font-weight: bold;
+}
