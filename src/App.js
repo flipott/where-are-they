@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./css/App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Timer from "./components/Timer";
 import ArtistsToFind from "./components/ArtistsToFind";
+import ImageCanvas from "./components/ImageCanvas";
 
 function App() {
+
   return (
     <div className="App">
       <Header />
@@ -21,7 +23,9 @@ function App() {
             <button>Start Game</button>
             <ArtistsToFind />
           </div>
-          <div className="main-img"><img src={require('./images/main.jpg')} /></div>
+          <div className="main-img">
+            <ImageCanvas />
+          </div>
         </div>
       </div>
       <Footer />
