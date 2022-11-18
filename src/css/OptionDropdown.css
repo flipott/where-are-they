@@ -1,0 +1,40 @@
+.option-dropdown {
+    position: absolute;
+    background: #CAD2C5;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    transform: translate(-40px, 5px);
+    z-index: 1;
+}
+
+.dropdown-btn {
+    border: none;
+    padding: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.dropdown-btn:first-of-type {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.dropdown-btn:last-of-type {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.dropdown-btn:nth-child(even) {
+    background: #CAD2C5;
+}
+
+.dropdown-btn:nth-child(odd) {
+    background: #bac1b7;
+}
+
+.dropdown-btn:nth-child(odd):hover,
+.dropdown-btn:nth-child(even):hover {
+    background: #2B3633;
+    color: white;
+}
