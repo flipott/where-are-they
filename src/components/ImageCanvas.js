@@ -28,7 +28,17 @@ export default function ImageCanvas() {
         const canvas = document.getElementById('blank-canvas');
         const position = getMousePosition(canvas, e);
         drawCircle(position, canvas);
+        generateOptions(e);
+    }
 
+    function generateOptions(e) {
+        const optionDropdown = document.createElement('div');
+        optionDropdown.classList.add("optionDropdown")
+        optionDropdown.textContent = "TEST!"
+        console.log(e.clientX);
+        optionDropdown.style.left = (e.pageX - 23) + "px";
+        optionDropdown.style.top = (e.pageY + 18) + "px";
+        document.body.appendChild(optionDropdown);
     }
 
     function drawCircle(position, canvas) {
