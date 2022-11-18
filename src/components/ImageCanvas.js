@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import "../css/ImageCanvas.css";
+import OptionDropdown from "./OptionDropdown";
 
 export default function ImageCanvas() {
 
     const [active, setActive] = React.useState(false);
+    const [positionEvent, setPositionEvent] = React.useState(null);
+    const [canvas, setCanvas] = React.useState(null);
+    const names = ["George Harrison", "Gene Simmons", "Otis Redding", "Ringo Starr", "Amy Winehouse"];
 
     useEffect(() => {
         const imgCanvas = document.getElementById('img-canvas');
@@ -25,20 +29,17 @@ export default function ImageCanvas() {
       }, []);
 
     function handleClick(e) {
-        const canvas = document.getElementById('blank-canvas');
-        const position = getMousePosition(canvas, e);
-        drawCircle(position, canvas);
-        generateOptions(e);
+        setPositionEvent(e);
+        setCanvas(e.target);
+        const currentCanvas = e.target;
+        const position = getMousePosition(currentCanvas, e);
+        drawCircle(position, currentCanvas);
     }
 
-    function generateOptions(e) {
-        const optionDropdown = document.createElement('div');
-        optionDropdown.classList.add("optionDropdown")
-        optionDropdown.textContent = "TEST!"
-        console.log(e.clientX);
-        optionDropdown.style.left = (e.pageX - 23) + "px";
-        optionDropdown.style.top = (e.pageY + 18) + "px";
-        document.body.appendChild(optionDropdown);
+    function optionSelect(name) {
+      drawCircle(positionEvent, canvas);
+      setActive(false);
+      console.log(name);
     }
 
     function drawCircle(position, canvas) {
@@ -59,16 +60,17 @@ export default function ImageCanvas() {
       }
     }
     
-      function getMousePosition(canvas, e) {
-        const rect = canvas.getBoundingClientRect();
-        return {
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top
-        };
-      }
+    function getMousePosition(canvas, e) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      };
+    }
 
     return (
         <>
+            {active && <OptionDropdown names={names} optionSelect={optionSelect} positionEvent={positionEvent}/>}
             <canvas id="blank-canvas" onClick={(e) => handleClick(e)} style={{position: "absolute"}} />
             <canvas id="img-canvas" />
         </>
