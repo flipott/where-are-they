@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "../css/ImageCanvas.css";
 import OptionDropdown from "./OptionDropdown";
 
-export default function ImageCanvas() {
+export default function ImageCanvas(props) {
 
     const [active, setActive] = React.useState(false);
     const [positionEvent, setPositionEvent] = React.useState(null);
@@ -39,7 +39,9 @@ export default function ImageCanvas() {
     function optionSelect(name) {
       drawCircle(positionEvent, canvas);
       setActive(false);
-      console.log(name);
+      const coords = getMousePosition(canvas, positionEvent);
+      const coordArr = [parseInt(coords.x), parseInt(coords.y)];
+      props.checkInside(name, coordArr);
     }
 
     function drawCircle(position, canvas) {
