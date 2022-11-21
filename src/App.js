@@ -5,6 +5,14 @@ import Footer from "./components/Footer";
 import Timer from "./components/Timer";
 import ArtistsToFind from "./components/ArtistsToFind";
 import ImageCanvas from "./components/ImageCanvas";
+import db from "./firebase";
+import { collection, query, getDocs } from 'firebase/firestore';
+
+
+const querySnapshot = getDocs(collection(db, "artists"));
+querySnapshot.forEach((doc) => {
+  console.log(`${doc.id} => ${doc.data()}`);
+});
 
 function App() {
 
