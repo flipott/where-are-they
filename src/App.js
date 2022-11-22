@@ -1,4 +1,4 @@
-import React, { startTransition, useEffect } from "react";
+import React, { startTransition, useEffect, useState } from "react";
 import "./css/App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -6,15 +6,43 @@ import Timer from "./components/Timer";
 import ArtistsToFind from "./components/ArtistsToFind";
 import ImageCanvas from "./components/ImageCanvas";
 import db from "./firebase";
-import { collection, query, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from "../node_modules/firebase/firestore";
 
-
-const querySnapshot = getDocs(collection(db, "artists"));
-querySnapshot.forEach((doc) => {
-  console.log(`${doc.id} => ${doc.data()}`);
-});
 
 function App() {
+
+  const [locationArray, setLocationArray] = useState([]);
+
+   
+  const fetchPost = async () => {
+      
+      await getDocs(collection(db, "artists"))
+          .then((querySnapshot)=>{               
+              const newData = querySnapshot.docs
+                  .map((doc) => ({id:doc.id, ...doc.data()}));
+                  setLocationArray(newData);
+          })
+      
+  }
+  
+  useEffect(()=>{
+      fetchPost();
+  }, []);
+
+
+  function testFunc(artistName) {
+    let coords;
+    for (let i = 0; i < locationArray.length; i++) {
+      if (locationArray[i].id === artistName) {
+          coords = locationArray[i].coords
+      }
+    }
+    console.log(JSON.parse(coords));
+  }
+  
+
+  testFunc("Otis Redding");
+
 
   function inside(point, vs) {
     var x = point[0], y = point[1];
