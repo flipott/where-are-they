@@ -5,43 +5,34 @@ import Footer from "./components/Footer";
 import Timer from "./components/Timer";
 import ArtistsToFind from "./components/ArtistsToFind";
 import ImageCanvas from "./components/ImageCanvas";
-import db from "./firebase";
-import { collection, getDocs } from "../node_modules/firebase/firestore";
+import { db } from "./firebase";
+import { collection, getDocs, doc, getDoc, query } from "../node_modules/firebase/firestore";
 
 
 function App() {
 
-  const [locationArray, setLocationArray] = useState([]);
+  const [gameStatus, setGameStatus] = React.useState(false);
+  const [toFind, setToFind] = React.useState([]);
 
-   
-  const fetchPost = async () => {
-      
-      await getDocs(collection(db, "artists"))
-          .then((querySnapshot)=>{               
-              const newData = querySnapshot.docs
-                  .map((doc) => ({id:doc.id, ...doc.data()}));
-                  setLocationArray(newData);
-          })
-      
+  function shuffleArr(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+     }
+    return arr.slice(0,5);
   }
-  
-  useEffect(()=>{
-      fetchPost();
-  }, []);
 
+  async function getToFind() {
+      let completeArray = [];
+      const q = query(collection(db, "artists"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        completeArray.push(doc.id);
+      })
 
-  function testFunc(artistName) {
-    let coords;
-    for (let i = 0; i < locationArray.length; i++) {
-      if (locationArray[i].id === artistName) {
-          coords = locationArray[i].coords
-      }
-    }
-    console.log(JSON.parse(coords));
+      const newArr = shuffleArr(completeArray);
+      return newArr;
   }
-  
-
-  testFunc("Otis Redding");
 
 
   function inside(point, vs) {
@@ -60,8 +51,28 @@ function App() {
     return inside;
   };
 
-  function checkInside(artistName, point) {
-    const redding = generateCoords(133, 60);
+  async function checkSelection(artistName, point) {
+    console.log(`Artist: ${artistName} Coords: ${point}`)
+    let currentArray = null;
+
+    const docRef = doc(db, "artists", artistName);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      currentArray = docSnap.data().coords;
+      console.log(docSnap.data().image);
+    } else {
+      console.error("Document does not exist.");
+    }
+
+    const parseArr = JSON.parse(currentArray);
+
+    if (inside(point, parseArr)) {
+      console.log("YES!");
+    } else {
+      console.log("NO!");
+    }
+
   }
 
   function generateCoords(x, y) {
@@ -111,6 +122,11 @@ function App() {
   // Amy Winehouse: [[533,526],[533,486],[573,486],[573,526]]
 
 
+  async function startGame() {
+    setGameStatus(true);
+    setToFind(await getToFind());
+  }
+
 
 
 
@@ -127,11 +143,11 @@ function App() {
         <div className="game">
           <div className="game-left">
             <Timer />
-            <button>Start Game</button>
-            <ArtistsToFind />
+            <button onClick={startGame}>Start Game</button>
+            <ArtistsToFind toFind={toFind} />
           </div>
           <div className="main-img">
-            <ImageCanvas checkInside={checkInside}/>
+            <ImageCanvas checkSelection={checkSelection}/>
           </div>
         </div>
       </div>
