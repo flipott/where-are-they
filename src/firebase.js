@@ -16,19 +16,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-const getArtistImages = async () => {
-    const artistImages = ref(storage, 'artist-photos/')
-    listAll(artistImages)
-        .then(async (res) => {
-        const { items } = res;
-        const urls = await Promise.all(items.map((item) => getDownloadURL(item)));
-        return urls;
-    })
-    .catch((error) => {
-        console.log(error);
-    });
-}
-
 
 
 
