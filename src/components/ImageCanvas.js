@@ -7,7 +7,7 @@ export default function ImageCanvas(props) {
     const [active, setActive] = React.useState(false);
     const [positionEvent, setPositionEvent] = React.useState(null);
     const [canvas, setCanvas] = React.useState(null);
-    const names = ["George Harrison", "Gene Simmons", "Otis Redding", "Ringo Starr", "Amy Winehouse"];
+    const names = ["Bjork", "Gene Simmons", "Otis Redding", "Ringo Starr", "Amy Winehouse"];
 
     useEffect(() => {
         const imgCanvas = document.getElementById('img-canvas');
@@ -41,7 +41,7 @@ export default function ImageCanvas(props) {
       setActive(false);
       const coords = getMousePosition(canvas, positionEvent);
       const coordArr = [parseInt(coords.x), parseInt(coords.y)];
-      props.checkInside(name, coordArr);
+      props.checkSelection(name, coordArr);
     }
 
     function drawCircle(position, canvas) {
