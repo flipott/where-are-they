@@ -31,7 +31,11 @@ function App() {
       })
 
       const newArr = shuffleArr(completeArray);
-      return newArr;
+
+      const objArr = newArr.map((item) => {
+        return {artistName: item, found: false}
+      })
+      return objArr;
   }
 
 
@@ -60,7 +64,6 @@ function App() {
 
     if (docSnap.exists()) {
       currentArray = docSnap.data().coords;
-      console.log(docSnap.data().image);
     } else {
       console.error("Document does not exist.");
     }
@@ -68,9 +71,10 @@ function App() {
     const parseArr = JSON.parse(currentArray);
 
     if (inside(point, parseArr)) {
-      console.log("YES!");
+      setToFind((prevItems) => prevItems.map((item) => item.artistName === artistName ? {...item, found: true} : item))
+      console.log(toFind);
     } else {
-      console.log("NO!");
+      console.log("Wrong.");
     }
 
   }
@@ -147,7 +151,7 @@ function App() {
             <ArtistsToFind toFind={toFind} />
           </div>
           <div className="main-img">
-            <ImageCanvas checkSelection={checkSelection}/>
+            <ImageCanvas gameStatus={gameStatus} toFind={toFind} checkSelection={checkSelection}/>
           </div>
         </div>
       </div>
