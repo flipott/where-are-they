@@ -46,8 +46,16 @@ h2 {
     border-bottom: 2px solid white;
 }
 
-.find-status {
+.not-found {
     background: #F3B2C2;
+    border-radius: 33px;
+    padding: 3px 10px;
+    color: black;
+    font-weight: bold;
+}
+
+.found {
+    background: #D9F9B1;
     border-radius: 33px;
     padding: 3px 10px;
     color: black;
