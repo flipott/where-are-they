@@ -55,6 +55,10 @@ function App() {
     return inside;
   };
 
+  useEffect(() => {
+    checkWinner();
+  },[toFind])
+
   async function checkSelection(artistName, point) {
     console.log(`Artist: ${artistName} Coords: ${point}`)
     let currentArray = null;
@@ -72,11 +76,20 @@ function App() {
 
     if (inside(point, parseArr)) {
       setToFind((prevItems) => prevItems.map((item) => item.artistName === artistName ? {...item, found: true} : item))
-      console.log(toFind);
     } else {
       console.log("Wrong.");
     }
 
+  }
+
+  function checkWinner() {
+    for (let i = 0; i < toFind.length; i++) {
+      if (toFind[i].found === false) {
+        return false;
+      }
+    }
+    console.log("You win!");
+    setGameStatus(false);
   }
 
   function generateCoords(x, y) {
@@ -147,8 +160,8 @@ function App() {
         <div className="game">
           <div className="game-left">
             <Timer />
-            <button onClick={startGame}>Start Game</button>
-            <ArtistsToFind toFind={toFind} />
+            {!gameStatus && <button onClick={startGame}>Start Game</button>}
+            {gameStatus && <ArtistsToFind toFind={toFind} />}
           </div>
           <div className="main-img">
             <ImageCanvas gameStatus={gameStatus} toFind={toFind} checkSelection={checkSelection}/>
