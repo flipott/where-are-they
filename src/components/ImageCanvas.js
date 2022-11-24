@@ -7,7 +7,6 @@ export default function ImageCanvas(props) {
     const [active, setActive] = React.useState(false);
     const [positionEvent, setPositionEvent] = React.useState(null);
     const [canvas, setCanvas] = React.useState(null);
-    const names = ["Bjork", "Gene Simmons", "Otis Redding", "Ringo Starr", "Amy Winehouse"];
 
     useEffect(() => {
         const imgCanvas = document.getElementById('img-canvas');
@@ -47,7 +46,7 @@ export default function ImageCanvas(props) {
     function drawCircle(position, canvas) {
         const context = canvas.getContext("2d");
 
-        if (!active) {
+        if (!active && props.gameStatus) {
             const posX = position.x * devicePixelRatio;
             const posY = position.y * devicePixelRatio;
             context.strokeStyle = "#E9184C";
@@ -72,7 +71,7 @@ export default function ImageCanvas(props) {
 
     return (
         <>
-            {active && <OptionDropdown names={names} optionSelect={optionSelect} positionEvent={positionEvent}/>}
+            {active && props.toFind &&  <OptionDropdown names={props.toFind} optionSelect={optionSelect} positionEvent={positionEvent}/>}
             <canvas id="blank-canvas" onClick={(e) => handleClick(e)} style={{position: "absolute"}} />
             <canvas id="img-canvas" />
         </>
