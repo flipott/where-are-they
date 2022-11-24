@@ -6,7 +6,7 @@ export default function OptionDropdown(props) {
 
 
     const nameItems = names.map(name =>
-         <button value={name.artistName} key={name.artistName} onClick={() => optionSelect(name.artistName)} className="dropdown-btn">{name.artistName}</button>)
+         <button value={name.artistName} disabled={name.found} key={name.artistName} onClick={() => optionSelect(name.artistName)} className="dropdown-btn">{name.artistName}</button>)
     return (
         <div className="option-dropdown" style={{left: (positionEvent.pageX - 23 + "px"), top: (positionEvent.pageY + 18 + "px") }}>
             {nameItems}
