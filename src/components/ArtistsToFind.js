@@ -51,9 +51,9 @@ export default function ArtistsToFind(props) {
                 {files && 
                 toFind.map((artist) => 
                     <div className="artist-item" key={artist}>
-                        <img src={getImageIndex(artist)} />
-                        <p>{artist}</p>
-                        <div className="find-status">Not Found</div>
+                        <img src={getImageIndex(artist.artistName)} />
+                        <p>{artist.artistName}</p>
+                        <div className={artist.found ? "found" : "not-found"}>{artist.found ? "Found" : "Not Found"}</div>
                     </div>
                 )}
             </div>
