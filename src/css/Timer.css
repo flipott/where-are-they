@@ -5,3 +5,7 @@
     border-radius: 12px;
     padding: 0px 20px;
 }
+
+.nums {
+    display: flex;
+}
