@@ -7,6 +7,7 @@
     padding: 25px 20px;
     border-radius: 33px;
     width: 400px;
+    height: 550px;
 }
 
 .item-section {
@@ -35,11 +36,12 @@ h2 {
     padding: 10px;
     border-top: 2px solid white;
     width: 75%;
+    height: 75px;
 }
 
 .artist-item > p {
     font-weight: bold;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
 }
 
 .artist-item:last-of-type {
