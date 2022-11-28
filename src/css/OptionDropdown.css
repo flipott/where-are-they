@@ -38,3 +38,7 @@
     background: #2B3633;
     color: white;
 }
+
+.dropdown-btn:disabled {
+    cursor: default;
+}
