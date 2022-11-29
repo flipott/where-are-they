@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import Timer from "./components/Timer";
 import ArtistsToFind from "./components/ArtistsToFind";
 import ImageCanvas from "./components/ImageCanvas";
+import WinnerInfo from "./components/WinnerInfo";
 import { db } from "./firebase";
 import { collection, getDocs, doc, getDoc, query } from "../node_modules/firebase/firestore";
 import { storage } from "./firebase";
@@ -16,6 +17,7 @@ function App() {
   const [gameStatus, setGameStatus] = React.useState(false);
   const [toFind, setToFind] = React.useState([]);
   const [finalTime, setFinalTime] = React.useState(null);
+  const [winner, setWinner] = React.useState(false);
   const [files, setFiles] = React.useState('');
 
   useEffect(() => {
@@ -43,7 +45,6 @@ function App() {
     }
 
     getArtistImages();
-    console.log('received')
 }, [])
 
 
@@ -128,7 +129,6 @@ function App() {
   },[toFind])
 
   async function checkSelection(artistName, point) {
-    console.log(`Artist: ${artistName} Coords: ${point}`)
     let currentArray = null;
 
     const docRef = doc(db, "artists", artistName);
@@ -145,7 +145,7 @@ function App() {
     if (inside(point, parseArr)) {
       setToFind((prevItems) => prevItems.map((item) => item.artistName === artistName ? {...item, found: true} : item))
     } else {
-      console.log("Wrong.");
+      return false;
     }
 
   }
@@ -160,7 +160,8 @@ function App() {
         return false;
       }
     }
-    console.log("You win!");
+
+    setWinner(true);
     setGameStatus(false);
   }
 
@@ -185,7 +186,8 @@ function App() {
         <div className="game">
           <div className="game-left">
             {gameStatus && <Timer setFinalTime={setFinalTime} toFind={toFind} />}
-            {!gameStatus && <button onClick={startGame}>Start Game</button>}
+            {!gameStatus && !winner && <button onClick={startGame}>Start Game</button>}
+            {!gameStatus && winner && <WinnerInfo finalTime={finalTime} setWinner={setWinner}/>}
             {gameStatus && <ArtistsToFind files={files} toFind={toFind}/>}
           </div>
           <div className="main-img">
