@@ -8,7 +8,6 @@ export default function ArtistsToFind(props) {
 
 
     function getImageIndex(artist) {
-        console.log("start")
         const artistName = artist.split(" ").join("").toLowerCase();
         for (let i = 0; i < files.length; i++) {
             if (files[i].artistName === artistName) {
