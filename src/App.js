@@ -6,6 +6,7 @@ import Timer from "./components/Timer";
 import ArtistsToFind from "./components/ArtistsToFind";
 import ImageCanvas from "./components/ImageCanvas";
 import WinnerInfo from "./components/WinnerInfo";
+import Leaderboard from "./components/Leaderboard";
 import { db } from "./firebase";
 import { collection, getDocs, doc, getDoc, query } from "../node_modules/firebase/firestore";
 import { storage } from "./firebase";
@@ -19,6 +20,7 @@ function App() {
   const [finalTime, setFinalTime] = React.useState(null);
   const [winner, setWinner] = React.useState(false);
   const [files, setFiles] = React.useState('');
+  const [displayLeaderboard, setDisplayLeaderboard] = React.useState(false);
 
   useEffect(() => {
     const getArtistImages = async () => {
@@ -181,8 +183,9 @@ function App() {
         <div className="description-leaderboard">
           <button className="empty-btn">Leaderboard</button>
           <p className="description">Click on their heads to identify them!</p>
-          <button>Leaderboard</button>
+          <button onClick={() => setDisplayLeaderboard(true)}>Leaderboard</button>
         </div>
+        {displayLeaderboard && <Leaderboard setDisplayLeaderboard={setDisplayLeaderboard} />}
         <div className="game">
           <div className="game-left">
             {gameStatus && <Timer setFinalTime={setFinalTime} toFind={toFind} />}
