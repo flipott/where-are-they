@@ -5,14 +5,14 @@ export default function Leaderboard(props) {
 
     const rows = props.leaderScores.map((obj, ind) => {
         return (
-            <tr>
+            <tr key={ind + obj.player + obj.time}>
                 <td>{ind+1}</td>
                 <td>{obj.player}</td>
                 <td>{obj.time}</td>
             </tr>
             )
     })
-    
+
     return (
         <div className="leaderboard-modal">
             <div className="leaderboard">
