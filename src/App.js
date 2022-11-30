@@ -20,6 +20,7 @@ function App() {
   const [finalTime, setFinalTime] = React.useState(null);
   const [winner, setWinner] = React.useState(false);
   const [files, setFiles] = React.useState('');
+  const [leaderScores, setLeaderScores] = React.useState([]);
   const [displayLeaderboard, setDisplayLeaderboard] = React.useState(false);
 
   useEffect(() => {
@@ -47,8 +48,33 @@ function App() {
     }
 
     getArtistImages();
-}, [])
+  }, [])
 
+  useEffect(() => {
+    const getLeaderboardScores = async () => {
+      let completeArr = [];
+      const querySnapshot = await getDocs(collection(db, "leaderboard"));
+      querySnapshot.forEach((doc) => {
+        completeArr.push(doc.data());
+      });
+      completeArr.sort(sortArr);
+      setLeaderScores(completeArr);
+    }
+    getLeaderboardScores();
+  }, [])
+
+
+  function sortArr(a, b) {
+    const aParsed = parseInt(a.time.split(":").join(""), 10);
+    const bParsed = parseInt(b.time.split(":").join(""), 10);
+    if (aParsed < bParsed){
+      return -1;
+    }
+    if (aParsed > bParsed){
+      return 1;
+    }
+    return 0;
+  }  
 
   function shuffleArr(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -185,7 +211,7 @@ function App() {
           <p className="description">Click on their heads to identify them!</p>
           <button onClick={() => setDisplayLeaderboard(true)}>Leaderboard</button>
         </div>
-        {displayLeaderboard && <Leaderboard setDisplayLeaderboard={setDisplayLeaderboard} />}
+        {displayLeaderboard && <Leaderboard setDisplayLeaderboard={setDisplayLeaderboard} leaderScores={leaderScores} />}
         <div className="game">
           <div className="game-left">
             {gameStatus && <Timer setFinalTime={setFinalTime} toFind={toFind} />}
