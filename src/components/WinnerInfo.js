@@ -1,18 +1,25 @@
 import React from "react";
 import "../css/WinnerInfo.css"
+import { collection, addDoc } from "/node_modules/firebase/firestore";
+import { db } from "../firebase";
+
 
 export default function WinnerInfo(props) {
-    const { finalTime, setWinner } = props;
+    const { finalTime, setWinner, setLeaderScores } = props;
 
     const [textVal, setTextVal] = React.useState('');
     const [submitted, setSubmitted] = React.useState(false);
 
-    function handleSubmit() {
+    async function handleSubmit() {
         if (!textVal) {
             return false;
         } else {
-            //ADD TO LEADERBOARD!
+            await addDoc(collection(db, "leaderboard"), {
+                player: textVal,
+                time: finalTime
+            });
             setSubmitted(true);
+            setLeaderScores([]);
         }
     }
     
