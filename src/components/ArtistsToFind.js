@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import uuid from "react-uuid";
 import "../css/ArtistsToFind.css";
 
 export default function ArtistsToFind(props) {
@@ -22,7 +23,7 @@ export default function ArtistsToFind(props) {
             <div className="item-section">
                 {files && 
                 toFind.map((artist) => 
-                    <div className="artist-item" key={artist} >
+                    <div className="artist-item" key={uuid()} >
                         <img src={getImageIndex(artist.artistName)} />
                         <p>{artist.artistName}</p>
                         <div className={artist.found ? "found" : "not-found"}>{artist.found ? "Found" : "Not Found"}</div>
