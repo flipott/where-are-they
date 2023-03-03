@@ -77,17 +77,17 @@ p {
 
 .game {
     display: flex;
-    justify-content: space-between;
     gap: 10px;
     align-items: center;
+    justify-content: center;
 }
 
 .game-left {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
     gap: 10px;
+    min-width: 440px;
 }
 
 .game-left > button {
@@ -101,10 +101,8 @@ p {
     cursor: pointer;
 }
 
-.main-img img {
-    height: 700px;
-}
-
-.main-img {
-    width: 100%;
+@media (max-width: 1000px) {
+    .game {
+        flex-direction: column;;
+    }
 }

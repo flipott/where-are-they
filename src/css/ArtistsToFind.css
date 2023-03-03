@@ -63,3 +63,75 @@ h2 {
     color: black;
     font-weight: bold;
 }
+
+
+@media (max-width: 600px) {
+    .item-section {
+        flex-direction: row;
+    }
+
+    .item-section p {
+        height: 50px;
+        width: 60px;
+        text-align: center;
+        line-height: 15px;
+        height: 30px;
+    }
+
+    .game-left {
+        flex-direction: row;
+    }
+    .artists-to-find {
+        background: #406259;
+        color: white;
+        display: flex;  
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        border-radius: 33px;
+        width: fit-content;
+        height: auto;
+    }
+    .item-section {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: auto;
+        font-size: 0.7rem;
+    }
+    
+    h2 {
+        font-family: Lemonada;
+        font-size: 1.5rem;
+        margin: 0;
+        text-align: center;
+        line-height: 30px;
+    }
+    
+    .artist-item > img {
+        width: 75px;
+    }
+    
+    .artist-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 2px;
+        border-top: none;
+        width: 75%;
+        height: auto;
+    }    
+
+    .artist-item > p {
+        font-weight: bold;
+        font-size: 1rem;
+    }
+
+    .artist-item:last-of-type {
+        border-bottom: none;
+    }
+    
+    
+}
