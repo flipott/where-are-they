@@ -7,6 +7,7 @@ export default function ImageCanvas(props) {
     const [active, setActive] = React.useState(false);
     const [positionEvent, setPositionEvent] = React.useState(null);
     const [canvas, setCanvas] = React.useState(null);
+    const [canvasCoords, setCanvasCoords] = React.useState(null);
     const [innerWidth, setInnerWidth] = React.useState(window.innerWidth);
     const [ratio, setRatio] = React.useState("large");
 
@@ -72,20 +73,19 @@ export default function ImageCanvas(props) {
         setCanvas(e.target);
         const currentCanvas = e.target;
         const position = getMousePosition(currentCanvas, e);
+        setCanvasCoords(position);
         drawCircle(position, currentCanvas);
     }
 
     function optionSelect(name) {
       drawCircle(positionEvent, canvas);
       setActive(false);
-      const coords = getMousePosition(canvas, positionEvent);
-      let coordArr = [parseInt(coords.x), parseInt(coords.y)];
-      // console.log(coordArr);
-      console.log([parseInt(coordArr[0] * 2), parseInt(coordArr[1] * 2)]);
+      let coordArr = [parseInt(canvasCoords.x), parseInt(canvasCoords.y)];
+
       if (ratio === "small") {
         props.checkSelection(name, [parseInt(coordArr[0] * 2), parseInt(coordArr[1] * 2)])
       } else if (ratio === "medium") {
-        props.checkSelection(name, [parseInt(coordArr[0] * 1.7), parseInt(coordArr[1] * 1.7)] );
+        props.checkSelection(name, [parseInt(coordArr[0] * 1.4286), parseInt(coordArr[1] * 1.4286)] );
       } else {
         props.checkSelection(name, coordArr);
       }
