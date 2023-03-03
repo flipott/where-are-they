@@ -45,7 +45,6 @@ function App() {
             console.log(error);
         });
     }
-
     getArtistImages();
   }, [])
 
@@ -60,7 +59,7 @@ function App() {
       setLeaderScores(completeArr.slice(0,10));
     }
     getLeaderboardScores();
-  }, [leaderScores])
+  }, [])
 
 
   function sortArr(a, b) {
@@ -201,11 +200,7 @@ function App() {
     <div className="App">
       <Header />
       <div className="main">
-        <div className="description-leaderboard">
-          <button className="empty-btn">Leaderboard</button>
-          <p className="description">Click on their heads to identify them!</p>
-          <button onClick={() => setDisplayLeaderboard(true)}>Leaderboard</button>
-        </div>
+
         {displayLeaderboard && <Leaderboard setDisplayLeaderboard={setDisplayLeaderboard} leaderScores={leaderScores} />}
         <div className="game">
           <div className="game-left">
@@ -219,6 +214,11 @@ function App() {
           </div>
         </div>
       </div>
+      <div className="description-leaderboard">
+          <button className="empty-btn">Leaderboard</button>
+          <p className="description">Click on their heads to identify them!</p>
+          <button onClick={() => setDisplayLeaderboard(true)}>Leaderboard</button>
+        </div>
       <Footer />
     </div>
   );
