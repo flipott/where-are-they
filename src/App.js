@@ -48,18 +48,19 @@ function App() {
     getArtistImages();
   }, [])
 
+  const getLeaderboardScores = async () => {
+    let completeArr = [];
+    const querySnapshot = await getDocs(collection(db, "leaderboard"));
+    querySnapshot.forEach((doc) => {
+      completeArr.push(doc.data());
+    });
+    completeArr.sort(sortArr);
+    setLeaderScores(completeArr.slice(0,10));
+  }
+
   useEffect(() => {
-    const getLeaderboardScores = async () => {
-      let completeArr = [];
-      const querySnapshot = await getDocs(collection(db, "leaderboard"));
-      querySnapshot.forEach((doc) => {
-        completeArr.push(doc.data());
-      });
-      completeArr.sort(sortArr);
-      setLeaderScores(completeArr.slice(0,10));
-    }
     getLeaderboardScores();
-  }, [])
+  }, [displayLeaderboard])
 
 
   function sortArr(a, b) {
@@ -198,15 +199,15 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header setDisplayLeaderboard={setDisplayLeaderboard} />
       <div className="main">
-
         {displayLeaderboard && <Leaderboard setDisplayLeaderboard={setDisplayLeaderboard} leaderScores={leaderScores} />}
         <div className="game">
           <div className="game-left">
             {gameStatus && <Timer setFinalTime={setFinalTime} toFind={toFind} />}
+            {!gameStatus && !winner && <p className="description">Click on their heads to identify them!</p>}
             {!gameStatus && !winner && <button onClick={startGame}>Start Game</button>}
-            {!gameStatus && winner && <WinnerInfo finalTime={finalTime} setWinner={setWinner} setLeaderScores={setLeaderScores}/>}
+            {!gameStatus && winner && <WinnerInfo finalTime={finalTime} setWinner={setWinner} getLeaderboardScores={getLeaderboardScores} setLeaderScores={setLeaderScores}/>}
             {gameStatus && <ArtistsToFind files={files} toFind={toFind}/>}
           </div>
           <div className="main-img">
@@ -214,11 +215,6 @@ function App() {
           </div>
         </div>
       </div>
-      <div className="description-leaderboard">
-          <button className="empty-btn">Leaderboard</button>
-          <p className="description">Click on their heads to identify them!</p>
-          <button onClick={() => setDisplayLeaderboard(true)}>Leaderboard</button>
-        </div>
       <Footer />
     </div>
   );
