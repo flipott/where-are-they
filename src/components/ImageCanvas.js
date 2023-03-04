@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "../css/ImageCanvas.css";
 import OptionDropdown from "./OptionDropdown";
 
 export default function ImageCanvas(props) {
@@ -12,6 +11,10 @@ export default function ImageCanvas(props) {
     const [ratio, setRatio] = React.useState("large");
 
     useEffect(() => {
+      if (positionEvent && canvas) {
+        drawCircle(positionEvent, canvas);
+      }
+      setActive(false);
       if (innerWidth >= 1000) {
         setRatio("large");
       } else if (innerWidth < 1000 && innerWidth >= 600 ) {
@@ -108,7 +111,7 @@ export default function ImageCanvas(props) {
             setActive(false);
       }
     }
-    
+
     function getMousePosition(canvas, e) {
       const rect = canvas.getBoundingClientRect();
       return {
@@ -118,10 +121,10 @@ export default function ImageCanvas(props) {
     }
 
     return (
-        <>
-            {active && props.toFind &&  <OptionDropdown names={props.toFind} optionSelect={optionSelect} positionEvent={positionEvent}/>}
+        <div className="canvas">
+            {active && props.toFind &&  <OptionDropdown names={props.toFind} ratio={ratio} canvasCoords={canvasCoords} optionSelect={optionSelect} positionEvent={positionEvent}/>}
             <canvas id="blank-canvas" onClick={(e) => handleClick(e)} style={{position: "absolute"}} />
             <canvas id="img-canvas" />
-        </>
+        </div>
     )
 }
