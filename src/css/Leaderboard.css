@@ -9,7 +9,7 @@
     color: white;
     border-radius: 33px;
     position: absolute;
-    margin: 10% auto;
+    margin: 100px auto;
     left: 50%;
     top: 25%;
     transform: translate(-50%, -50%);
@@ -57,4 +57,10 @@
 .leaderboard tr:nth-child(2n+2),
 .leaderboard button:hover {
     background: #b0b4ad;
+}
+
+.leaderboard h2 {
+    font-size: 2rem;
+    margin: 0;
+    padding: 0;
 }

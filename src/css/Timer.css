@@ -9,3 +9,10 @@
 .nums {
     display: flex;
 }
+
+@media (max-width: 1000px) {
+    .timer {
+        font-size: 2rem;
+        padding: 0px 15px;
+    }
+}

@@ -6,6 +6,8 @@
     flex-direction: column;
     transform: translate(-40px, 5px);
     z-index: 1;
+    white-space:nowrap;
+    min-width: 130px;
 }
 
 .dropdown-btn {
@@ -13,6 +15,10 @@
     padding: 8px;
     font-weight: bold;
     cursor: pointer;
+}
+
+body {
+    position: relative;
 }
 
 .dropdown-btn:first-of-type {

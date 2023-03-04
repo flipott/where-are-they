@@ -11,10 +11,13 @@
 }
 
 html, body {
-    height: 100vh;
     margin: 0;
     background: #2F3E46;
     position: relative;
+}
+
+body {
+    min-height: 100vh;
 }
 
 .App {
@@ -34,6 +37,8 @@ p {
     height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 10px;
     margin-top: 10px;
 }
@@ -48,14 +53,9 @@ p {
 
 .description {
     font-size: 1.8rem;
-}
-
-.description, .empty-btn {
-    flex: auto;
-}
-
-.empty-btn {
-    visibility: hidden;
+    color: white;
+    max-width: 400px;
+    text-align: center;
 }
 
 .description-leaderboard button {
@@ -102,7 +102,17 @@ p {
 }
 
 @media (max-width: 1000px) {
-    .game {
-        flex-direction: column;;
+    .main {
+        padding: 0;
+    }
+    
+    .game-left {
+        min-width: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .description {
+        max-width: 200px;
     }
 }
