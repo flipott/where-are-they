@@ -10,7 +10,8 @@ export default function WinnerInfo(props) {
     const [textVal, setTextVal] = React.useState('');
     const [submitted, setSubmitted] = React.useState(false);
 
-    async function handleSubmit() {
+    async function handleSubmit(e) {
+        e.preventDefault();
         if (!textVal) {
             return false;
         } else {
@@ -23,15 +24,15 @@ export default function WinnerInfo(props) {
         }
     }
     
-    return (
+    return ( 
         <div className="winner">
             <p className="final-time">Success! Your final time was: <strong>{finalTime}</strong></p>
             <div className="name-option">
                 <p className="name-entry">Enter your name below to be added to the leaderboard.</p>
-                <div className="name-form">
-                    <input type="text" maxLength={12} value={textVal} onChange={(e) => setTextVal(e.target.value)} disabled={submitted} />
-                    <button onClick={handleSubmit} disabled={submitted}>Submit</button>
-                </div>
+                <form onSubmit={(e) => handleSubmit(e)} className="name-form">
+                    <input type="text" required maxLength={12} value={textVal} onChange={(e) => setTextVal(e.target.value)} disabled={submitted} />
+                    <button disabled={submitted}>Submit</button>
+                </form>
                 {submitted && <p className="submitted">Your score has been successfully added to the leaderboard.</p>}
             </div>
             <button onClick={() => setWinner(false)}>Play Again</button>
